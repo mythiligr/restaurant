@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-6">
+        <button type="submit" onclick="location.href ='/booking/';" class="btn y-btn btn-primary qx-mt-15 pt-5">Back to Booking List</button>
+    </div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12 mt-5">
+		<!-- Repeater Html Start -->
+		<form method="POST" class="left-right-panel" id="form-table">
+            {% csrf_token %}
+		<div id="repeater1" class="droppable">
+			<div class="row">
+				<div class="col-xs-12">
+                    {% for table in data.table_data %}
+					<div class="items option-remove" data-group="opt">
+						<!-- Repeater Content -->
+						<div class="item-content crit-clone-remove-apend">
+							<div class="row">
+								<div class="col-xs-6 col-md-6">
+									<div class="form-group clone-parent">
+										<textarea name="" data-id={{table.id}} rows="1" class="form-control options option-validation" id="" placeholder="Table">{{table}}</textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                    {% endfor %}					
+                    {% if not data.table_data %}
+                    	{% for i in i|rjust:8 %}
+		                     <div class="items" data-group="opt">
+								<!-- Repeater Content -->
+								<div class="item-content crit-clone-remove-apend">
+									<div class="row">
+										<div class="col-xs-6 col-md-6">
+											<div class="form-group clone-parent">
+												<textarea name="" data-id='0' rows="1" class="form-control options option-validation" id="" placeholder="Table">{{table}}</textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					{% endif%}
+				</div>
+			</div>
+
+			<div class="row div-create-new">
+				<div class="col-xs-6">
+					<div class="repeater-heading">
+						<span class="btn btn-primary mb-15 pt-5 pull-right y-btn repeater-add-btn new-option-btn">New Table</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Repeater End -->
+			<div class="row">
+				<div class="col-xs-6 text-center">
+						<button type="submit" id="submit-options" class="btn y-btn btn-primary qx-mt-15 pt-5 option-btn repeater-add-btn">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{% load staticfiles %} <script src="{% static "js/repeater.js" %}"></script>
+{% load staticfiles %} <script src="{% static "js/tables.js" %}"></script>
+{% endblock %}

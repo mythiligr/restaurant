@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6">
+            <button type="submit" onclick="location.href ='/Create-table/';" class="btn y-btn btn-primary qx-mt-15 pt-5">Create tables</button>
+        </div>
+        <div class="col-xs-6">
+            <button type="submit" onclick="location.href ='/Book-table/';" class="btn y-btn btn-primary qx-mt-15 pt-5">Book a table</button>
+        </div>
+    </div>
+    <div class="row">
+       <div class="col-xs-12">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Start time</th>
+                <th>End time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if books %}
+                {% for book in books %}
+                  <tr>
+                    <td>{{ book.table }}</td>
+                    <td>{{ book.booking_time_start|date:'H:i' }}</td>
+                    <td>{{ book.booking_time_end|date:'H:i' }}</td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                  <tr>
+                      <td colspan="3"><center><span>No Record Found</span></center></td>
+                  </tr>
+              {% endif %}
+            </tbody>
+        </table>
+
+        {% if books %}
+          {% if is_paginated %}
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                  <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                  <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in paginator.page_range %}
+                  {% if page_obj.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                  {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                  <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                  <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+</div>
+
+{% endblock %}

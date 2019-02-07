@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-6">
+        <button type="submit" onclick="location.href ='/booking/';" class="btn y-btn btn-primary qx-mt-15 pt-5">Back to Booking List</button>
+    </div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12 mt-5">						
+		<form method="post" class="left-right-panel" id="createBooking">
+		    {% csrf_token %}
+		    <div class="row">
+		        <div class="col-xs-4 col-md-4">
+		            <div class="form-group">
+		                <label>Table</label>
+		                <select id="table_name" class="form-control" name="table_name" required="">
+		                	<option value="">Please select</option>
+		                	{% if data.table_data %}
+			                	{% for table in data.table_data %}
+			                	<option value="{{table.id}}">{{table.name}}</option>
+			                	{% endfor %}
+			                {% else %}
+			                	<option value="">No table found</option>
+			                {% endif %}
+		                </select>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-xs-4 col-md-4">
+		            <div class="form-group">
+		                <label>Start time</label>
+		                <input type="text" class="form-control" id="start_time" name="start_time" autocomplete="off"required="" />
+		            </div>
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-xs-4 col-md-4">
+		            <div class="form-group">
+		                <label>End time</label>
+		                <input type="text" class="form-control" name="end_time" id="end_time" readonly/>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-xs-4 text-center">
+		            <button class="btn btn-primary qx-mt-15 y-btn" type="submit">Submit</button>
+		        </div>
+		    </div>
+		</form>
+	</div>
+</div>
+{% load staticfiles %} <script src="{% static "js/booking.js" %}"></script>
+{% endblock %}			

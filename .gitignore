@@ -1,0 +1,11 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+
+env/*
+.idea/*
+.git/*
+static/*
+qualitics/local_settings.py
+*.pyc
+!spec/*.pyc
+project/project/__pycache__/*
+project/restaurant/migrations/*
